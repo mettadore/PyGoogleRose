@@ -5,7 +5,7 @@ class Rose(object):
     def __init__(self, lst, bad_value=-32768, color='red'):
         self.color = color
         lst = [i for i in filter(lambda x: x != bad_value, lst)]
-        h = 'ABCDEFGH123456789' # Hex values for use in the URL
+        coding = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
         bins = {0:0} # Initialize with a zero value at due north
         a = 0
         # Separate values into bins of 10 degree increments. The values
@@ -30,7 +30,7 @@ class Rose(object):
         # Re-interpret values as percentages of a hex value from 1-16
         for k,v in bins.items():
             try:
-                bins[k] = h[int((v/highest) * 16)]
+                bins[k] = coding[int((v/highest) * len(coding))]
             # We have no azimuth values.
             except ZeroDivisionError:
                 bins[k] = 'A'
@@ -53,7 +53,7 @@ class Rose(object):
             # Take the arctan of this, using atan2 to preserve the quadrant information
             # We divide this (in degrees) by ten because there are only 36 values
             # around our rose diagram
-            mean = degrees(rotate(atan2(sa,ca)))/10
+            self.mean = mean = degrees(rotate(atan2(sa,ca)))/10
             ########################################
         
         ########################################
@@ -62,9 +62,9 @@ class Rose(object):
         self.G.size(200,200)
         self.G.color(self.color)
         self.G.line(2,4,0)
-        self.G.line(2,4,0)
         self.G.axes('x')
-        self.G.axes.label(0, 'N',10,20,30,40,50,60,70,80,'E',100,110,120,130,140,150,160,170,'S',190,200,210,220,230,240,250,260,'W',280,290,300,310,320,330,340,350)
+        labels = [0, 'N','','','','','','','','','E','','','','','','','','','S','','','','','','','','','W','','','','','','','','']
+        self.G.axes.label(*labels)
         self.G.axes.range(0, 0.0,360.0)
         self.G.marker('h','blue',0,1.0,1)
         self.G.marker('V','008000',0,mean,5)
@@ -76,3 +76,4 @@ class Rose(object):
     def tag(self, imgid='chart'):
         return self.G.img(height=200,id=imgid)
 
+#l = [340.16, 315.02, 313.17, 24.42, 316.28, 325.29, 343.25, 315.32, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768]
