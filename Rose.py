@@ -58,10 +58,13 @@ class Rose(object):
         # accept that until Google gets a more functional API
         for i in range(5,360,10):
             num = bins[i+5]
-            key = int((bins[i+5]/highest) * (len(coding)-1))
-            val = coding[key]
+            try:
+                key = int((bins[i+5]/highest) * (len(coding)-1))
+                val = coding[key]
+            except ZeroDivisionError:
+                val = 'A'
             for j in range(a,i):
-                if (j%10 == 5): 
+                if (j%10 == 5):
                     vals.append('A')
                 else:
                     vals.append(val)
