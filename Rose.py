@@ -116,7 +116,10 @@ class Rose(object):
         self.G.axes('x')
         self.G.axes.label(*labels)
         self.G.axes.range(0, 0.0,360.0)
-        self.G.marker('h','blue',0,1.0,1)
+        self.G.marker('h','aaaaaa',0,1.0,2)
+        self.G.marker('h','aaaaaa',0,0.5,2)
+        self.G.marker('h','dddddd',0,0.25,1)
+        self.G.marker('h','dddddd',0,0.75,1)
         self.G.marker('V','008000',0,mean,5)
         self.G.marker('B','FF000080',0,1.0,5.0)
 
